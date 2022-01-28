@@ -27,9 +27,9 @@ Rstudio (1.3.1093)
 
 Requirements for applying workflow to your own data:
 
-blastn 2.10.0, build dec 3 2019 
-core genome alignment tool such as parsnp
-phylogeny tool such as fasttree 
+- blastn 2.10.0, build dec 3 2019 
+- core genome alignment tool such as parsnp
+- phylogeny tool such as fasttree 
 
 R libraries required for analysis:
 
