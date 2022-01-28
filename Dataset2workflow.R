@@ -19,7 +19,7 @@ Mytree <- read.newick(Treefile)
 Metadata$Seqname <- gsub(".txt","",Metadata$Seqname)
 # Metadata$Seqname <- gsub("GCF","GCA",Metadata$Seqname)
 
-# ST9999 is an internal error code for STs that couldn't be defined
+# ST9999 is an internal error code for STs that couldn't be defined due to either novel alleles, or incomplete alleles. 
 Metadata$ST[Metadata$ST==9999] <- NA
 
 x <- as_tibble(Mytree)

@@ -1,37 +1,40 @@
-Serotype switch detection from core genome alignments coupled with in silico serotyping
+This repository contains workflows for 
+	- Serotype switch detection from core genome alignments coupled with in silico serotyping
+	- Discovering size and boundaries of serotype O12 islands 
+	
+	
+Howto: 
 
+There are three different analysis in this repository.
+ 
+Dataset1workflow.R covers detection of serotype switches in "Dataset1". 
+Assemblylist, tree, and typing data found in /metadata/ Dataset1assemblylist.txt, Dataset1parsnp.tree, and Dataset1meta.Rdata, respectively. 
+
+Dataset2workflow.R covers detection of serotype switches in "Dataset2". 
+Assemblylist, tree, and typing data found in /metadata/ Dataset2assemblylist.txt, Dataset2parsnp.tree, and Dataset2meta.Rdata, respectively. 
+
+PA7serotypeislandworkflow.R covers detection and characterization of O12 serotype islands in O12 isolates. 
+This analysis was run on genomes from both "dataset1" and "dataset2"
+
+To run analysis, the workflows have been set up so you can simply clone the repository, open the corresponding workflow file, and run all code in said workflow file.
+
+All files required for replication of study have been included in the repository. 
 
 Requirements for replication of study: 
 
+R (4.0.3)
+Rstudio (1.3.1093)
+
 R libraries required for analysis:
 
-- readr
-- ggtree
-- treeio
-- tidytree
+- readr (1.4.0)
+- ggtree (2.4.2)
+- treeio (1.14.4)
+- tidytree (0.3.3)
 
 R libraries required for plotting:
 
-- ggplot2
-- ggnewscale
-- viridis
-
-
-Files required for analysis:
-
-- A file containing sequence names, serotype and sequence type. 
-- A newick format .tree file 
-
-
-
-Example of results table
-
-
-| Node  | ST | Serotype | SND |
-| ----- | -- | -------- | --- | 
-| 303 | 244 | O2.O5 | 344.74  |
-| 302 | 244 | O2.O5 | 235.15  |
-| 301 | 244 | O2.O5 | 163.56  |
-| 247 | 253 | O10.O12 | 31.16  |
-| 270 | 111 | O12.O4 | 24.54  |
+- ggplot2 (3.3.3)
+- ggnewscale (0.4.5)
+- viridis (0.6.0)
 
