@@ -1,6 +1,6 @@
 This repository contains workflows for 
-	- Serotype switch detection from core genome alignments coupled with in silico serotyping
-	- Discovering size and boundaries of serotype O12 islands 
+- Serotype switch detection from core genome alignments coupled with in silico serotyping
+- Discovering size and boundaries of serotype O12 islands 
 	
 	
 Howto: 
