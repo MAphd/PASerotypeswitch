@@ -8,7 +8,7 @@ Howto:
 There are three different analysis in this repository.
  
 Dataset1workflow.R covers detection of serotype switches in "DatasetA". 
-Assemblylist, tree, and typing data found in /metadata/ DatasetAassemblylist.txt, Dataset1parsnp.tree, and Dataset1meta.Rdata, respectively. 
+Assemblylist, tree, and typing data found in /metadata/ Dataset1assemblylist.txt, Dataset1parsnp.tree, and Dataset1meta.Rdata, respectively. 
 
 Dataset2workflow.R covers detection of serotype switches in "DatasetB". 
 Assemblylist, tree, and typing data found in /metadata/ Dataset2assemblylist.txt, Dataset2parsnp.tree, and Dataset2meta.Rdata, respectively. 
