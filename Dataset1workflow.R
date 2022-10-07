@@ -13,6 +13,15 @@ Usedir <- dirname(rstudioapi::getSourceEditorContext()$path)
 Metadata <- readRDS(paste0(Usedir, "/Metadata/Dataset1meta.Rdata"))
 Treefile <- paste0(Usedir, "/Metadata/Dataset1parsnp.tree")
 
+#SND Threshold 
+#Set Locusvar to 0, 1 or 2 to define SND threshold
+#For locusvar = 0, The threshold is set above the value of SND for the first result involving more than 1 ST (sorted by SND descending)
+#For locusvar = 1, Same as above, however STs that differ by only one locus are allowed (sorted by SND descending)
+#For locusvar = 2, Same as above, however STs that differ by two locus are allowed (sorted by SND descending)
+Locusvar <- 0
+
+MLST <- read_table2(paste0(Usedir, "/paeruginosamlstprofile.txt"))
+
 
 Mytree <- read.newick(Treefile)
 
@@ -97,9 +106,63 @@ for(i in 1:length(Temp1$SND[!is.na(Temp1$SND)])){
   
 }
 colnames(Results) <- c("Node","ST","Serotypes","ICSR","n","SND")
-
+Results$SND <- as.numeric(Results$SND)
 
 Mytree2 <- as.treedata(y)
+
+
+#Threshold
+if(Locusvar == 0){
+  #No double MLST results allowed
+  Threshold <- Results$SND[min(which(grepl(".",Results$ST,fixed=TRUE)))]
+} else if(Locusvar == 1){
+  #Single locus variants allowed threshold
+  a <- which(grepl(".",Results$ST,fixed=TRUE))
+  i <- 1;SLV <- TRUE
+  while(SLV){
+    b <- unlist( strsplit( Results$ST[a[i]],".",fixed=TRUE))
+    if(length(b) > 2){
+      Threshold <- Results$SND[a[i]]
+      SLV = FALSE
+    }
+    b2 <- which(MLST$ST %in% b)
+    
+    if( sum(! MLST[b2[1],2:8] == MLST[b2[2],2:8] )>1  ){
+      Threshold <- Results$SND[a[i]]
+      SLV = FALSE
+      
+      
+    }
+    i <- i +1
+    
+  }
+} else if (Locusvar == 2){
+  #Double locus variants allowed threshold
+  a <- which(grepl(".",Results$ST,fixed=TRUE))
+  i <- 1;SLV <- TRUE
+  while(SLV){
+    b <- unlist( strsplit( Results$ST[a[i]],".",fixed=TRUE))
+    if(length(b) > 2){
+      Threshold <- Results$SND[a[i]]
+      SLV = FALSE
+    }
+    b2 <- which(MLST$ST %in% b)
+    
+    if( sum(! MLST[b2[1],2:8] == MLST[b2[2],2:8] )>2  ){
+      Threshold <- Results$SND[a[i]]
+      SLV = FALSE
+      
+      
+    }
+    i <- i +1
+    
+  }
+  
+} else {
+  print("invalid threshold, Locusvar must be 0, 1 or 2")
+}
+
+
 
 
 Myserotype <- data.frame(as.factor(Metadata$Serotype))
@@ -115,7 +178,7 @@ p1 <- gheatmap(p1, Myserotype, offset = 0, width = 0.1, colnames = FALSE, color 
 
 #
 p1 <- p1 + ggnewscale::new_scale_fill() +
-  geom_nodepoint(size = 5, shape = 21, color = "black", stroke = 0.3, aes(subset = (!is.na(SND))&SND>10,alpha = 0.6, fill = (SND) )) +  # geom_nodepoint(size = 0.7, stroke = 0.01, shape = 21, color = "black", fill = NA, aes(subset = (!is.na(SND))&SND>10 )) +
+  geom_nodepoint(size = 5, shape = 21, color = "black", stroke = 0.3, aes(subset = (!is.na(SND))&SND>Threshold,alpha = 0.6, fill = (SND) )) +  # geom_nodepoint(size = 0.7, stroke = 0.01, shape = 21, color = "black", fill = NA, aes(subset = (!is.na(SND))&SND>10 )) +
   scale_fill_viridis(alpha=0.8,option = "D", direction = -1,name="SND") +
   scale_alpha(guide="none")
 
