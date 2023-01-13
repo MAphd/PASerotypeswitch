@@ -44,3 +44,6 @@ R libraries required for plotting:
 - ggnewscale (0.4.5)
 - viridis (0.6.0)
 
+Citation
+Anbo M, Jelsbak L. 2023. A bittersweet fate: detection of serotype switching in Pseudomonas aeruginosa. Microb Genomics 9:000919.
+https://doi.org/10.1099/mgen.0.000919
